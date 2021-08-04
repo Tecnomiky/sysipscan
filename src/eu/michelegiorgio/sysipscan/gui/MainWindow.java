@@ -222,4 +222,8 @@ public class MainWindow extends JFrame {
 
 		return id;
 	}
+
+	public void setStatus(String status) {
+		labelStatus.setText(status);
+	}
 }
