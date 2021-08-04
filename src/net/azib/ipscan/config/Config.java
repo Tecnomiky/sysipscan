@@ -18,19 +18,10 @@ public final class Config {
 
 	/** easily accessible scanner configuration */
 	private ScannerConfig scannerConfig;
-	/** various GUI preferences and dimensions are stored here */
-	private GUIConfig guiConfig;
-	/** favorites are stored here */
-	private FavoritesConfig favoritesConfig;
-	/** openers are stored here */
-	private OpenersConfig openersConfig;
 
 	Config() {
 		preferences = Preferences.userRoot().node("ipscan");
 		scannerConfig = new ScannerConfig(preferences);
-		guiConfig = new GUIConfig(preferences);
-		favoritesConfig = new FavoritesConfig(preferences);
-		openersConfig = new OpenersConfig(preferences);
 		language = preferences.get("language", "system");
 		uuid = preferences.get("uuid", null);
 		if (uuid == null) {
@@ -53,9 +44,6 @@ public final class Config {
 		preferences.put("uuid", uuid);
 		preferences.putBoolean("allowReports", allowReports);
 		scannerConfig.store();
-		guiConfig.store();
-		favoritesConfig.store();
-		openersConfig.store();
 	}
 
 	public Preferences getPreferences() {
@@ -67,27 +55,6 @@ public final class Config {
 	 */
 	public ScannerConfig forScanner() {
 		return scannerConfig;
-	}
-	
-	/**
-	 * @return Favorites config (only local access)
-	 */
-	FavoritesConfig forFavorites() {
-		return favoritesConfig;
-	}
-
-	/**
-	 * @return Openers config (only local access);
-	 */
-	public OpenersConfig forOpeners() {
-		return openersConfig;
-	}
-	
-	/**
-	 * @return Dimensions config (quick access);
-	 */
-	public GUIConfig forGUI() {
-		return guiConfig;
 	}
 
 	public Locale getLocale() {
