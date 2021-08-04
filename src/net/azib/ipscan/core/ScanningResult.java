@@ -35,10 +35,9 @@ public class ScanningResult {
 	private Object[] values;
 	/** Scanning result type */ 
 	private ResultType type;
-	
-	/** reference to the containing list */
-	ScanningResultList resultList;
-	
+	/** fetchers of result */
+	private List<Fetcher> fetchers;
+
 	/**
 	 * Creates a new instance, initializing the first value to the 
 	 * provided address
@@ -99,6 +98,14 @@ public class ScanningResult {
 	}
 
 	/**
+	 * Set fetchers of result
+	 * @param fetchers
+	 */
+	public void setFetchers(List<Fetcher> fetchers) {
+		this.fetchers = fetchers;
+	}
+
+	/**
 	 * Sets the value returned by the specified fetcher
 	 * @param fetcherIndex
 	 * @param value
@@ -118,7 +125,6 @@ public class ScanningResult {
 		
 		StringBuilder details = new StringBuilder(1024);
 		Iterator<?> iterator = getValues().iterator();
-		List<Fetcher> fetchers = resultList.getFetchers();
 		for (int i = 0; iterator.hasNext(); i++) {
 			String fetcherName = fetchers.get(i).getName();
 			details.append(fetcherName).append(":\t");

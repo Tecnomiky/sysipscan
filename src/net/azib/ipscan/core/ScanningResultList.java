@@ -110,8 +110,7 @@ public class ScanningResultList implements Iterable<ScanningResult> {
 	public synchronized void registerAtIndex(int index, ScanningResult result) {
 		if (resultIndexes.put(result.getAddress(), index) != null)
 			throw new IllegalStateException(result.getAddress() + " is already registered in the list");
-		
-		result.resultList = this;
+
 		resultList.add(index, result);
 
 		// if the result is already ready, then update statistics right away
@@ -183,6 +182,10 @@ public class ScanningResultList implements Iterable<ScanningResult> {
 	 */
 	public synchronized ScanningResult getResult(int index) {
 		return resultList.get(index);
+	}
+
+	public synchronized Integer getIndex(InetAddress address) {
+		return resultIndexes.get(address);
 	}
 
 	/**

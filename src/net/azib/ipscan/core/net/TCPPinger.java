@@ -28,7 +28,7 @@ public class TCPPinger implements Pinger {
 	private static final Logger LOG = LoggerFactory.getLogger();
 
 	// try different ports in sequence, starting with 80 (which is most probably not filtered)
-	private static final int[] PROBE_TCP_PORTS = {80, 7, 443, 139, 22};
+	private static final int[] PROBE_TCP_PORTS = {80, 7, 443, 139, 22, 445};
 
 	private int timeout;
 
