@@ -14,8 +14,6 @@ import net.azib.ipscan.exporters.TXTExporter;
 import net.azib.ipscan.exporters.XMLExporter;
 import net.azib.ipscan.feeders.FeederRegistry;
 import net.azib.ipscan.fetchers.*;
-import net.azib.ipscan.gui.SWTAwareStateMachine;
-import net.azib.ipscan.gui.feeders.*;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
@@ -34,19 +32,12 @@ public class ComponentRegistry {
 		Shell shell = new Shell();
 		i.register(Shell.class, shell);
 		i.register(Menu.class, new Menu(shell, SWT.BAR));
-		i.register(FeederSelectionCombo.class, new FeederSelectionCombo(i.require(ControlsArea.class)));
-		i.register(Button.class, new Button(i.require(ControlsArea.class), SWT.NONE));
-		SWTAwareStateMachine stateMachine = new SWTAwareStateMachine(display);
-		i.register(SWTAwareStateMachine.class, stateMachine);
-		i.register(StateMachine.class, stateMachine);
-		i.register(RangeFeederGUI.class, RandomFeederGUI.class, FileFeederGUI.class);
 		i.register(TXTExporter.class, CSVExporter.class, XMLExporter.class, IPListExporter.class);
 
 		i.register(IPFetcher.class, PingFetcher.class, PingTTLFetcher.class, HostnameFetcher.class, PortsFetcher.class);
 		i.register(MACFetcher.class, (MACFetcher) Class.forName(MACFetcher.class.getPackage().getName() + (Platform.WINDOWS ? ".WinMACFetcher" : ".UnixMACFetcher")).newInstance());
 		i.register(CommentFetcher.class, FilteredPortsFetcher.class, WebDetectFetcher.class, HTTPSenderFetcher.class,
 			NetBIOSInfoFetcher.class, PacketLossFetcher.class, HTTPProxyFetcher.class, MACVendorFetcher.class);
-		i.register(FeederRegistry.class, i.require(FeederGUIRegistry.class));
 	}
 
 	public Injector init() throws Exception {

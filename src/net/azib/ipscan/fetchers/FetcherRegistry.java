@@ -5,8 +5,6 @@
  */
 package net.azib.ipscan.fetchers;
 
-import net.azib.ipscan.gui.PreferencesDialog;
-
 import java.lang.reflect.Constructor;
 import java.util.*;
 import java.util.prefs.Preferences;
@@ -21,7 +19,6 @@ public class FetcherRegistry {
 	static final String PREFERENCE_SELECTED_FETCHERS = "selectedFetchers";
 
 	private final Preferences preferences;
-	private final PreferencesDialog preferencesDialog;
 	
 	/** All available Fetcher implementations, List of Fetcher instances */
 	private Map<String, Fetcher> registeredFetchers;
@@ -32,9 +29,8 @@ public class FetcherRegistry {
 	/** A collection of update listeners - observers of FetcherRegistry */
 	private List<FetcherRegistryUpdateListener> updateListeners = new ArrayList<>();
 		
-	public FetcherRegistry(List<Fetcher> fetchers, Preferences preferences, PreferencesDialog preferencesDialog) {
+	public FetcherRegistry(List<Fetcher> fetchers, Preferences preferences) {
 		this.preferences = preferences;
-		this.preferencesDialog = preferencesDialog;
 
 		registeredFetchers = createFetchersMap(fetchers);
 
@@ -139,33 +135,5 @@ public class FetcherRegistry {
 		
 		// save preferences
 		saveSelectedFetchers(preferences);
-	}
-
-  /**
-   * Opens preferences editor for the specified fetcher, if possible.
-   * @throws FetcherException if preferences editor doesn't exist
-   */
-	public void openPreferencesEditor(Fetcher fetcher) throws FetcherException {
-		Class<? extends FetcherPrefs> prefsEditorClass = fetcher.getPreferencesClass();
-		if (prefsEditorClass == null)
-			throw new FetcherException("preferences.notAvailable");
-
-		try {
-			FetcherPrefs prefs = createFetcherPrefsEditor(prefsEditorClass);
-			prefs.openFor(fetcher);
-		}
-		catch (Exception e) {
-			throw new RuntimeException("Cannot instantiate fetcher preference editor: " + prefsEditorClass.getName(), e);
-		}
-	}
-
-	private FetcherPrefs createFetcherPrefsEditor(Class<? extends FetcherPrefs> prefsClass) throws Exception {
-		try {
-			Constructor<? extends FetcherPrefs> constructor = prefsClass.getConstructor(PreferencesDialog.class);
-			return constructor.newInstance(preferencesDialog);
-		}
-		catch (NoSuchMethodException e) {
-			return prefsClass.newInstance();
-		}
 	}
 }

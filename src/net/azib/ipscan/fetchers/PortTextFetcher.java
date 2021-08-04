@@ -9,7 +9,6 @@ import net.azib.ipscan.config.LoggerFactory;
 import net.azib.ipscan.config.ScannerConfig;
 import net.azib.ipscan.core.ScanningResult.ResultType;
 import net.azib.ipscan.core.ScanningSubject;
-import net.azib.ipscan.gui.fetchers.PortTextFetcherPrefs;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -107,11 +106,6 @@ public abstract class PortTextFetcher extends AbstractFetcher {
 			}
 		}
 		return subject.isAnyPortRequested() ? subject.requestedPortsIterator() : singleton(defaultPort).iterator();
-	}
-
-	@Override
-	public Class<? extends FetcherPrefs> getPreferencesClass() {
-		return PortTextFetcherPrefs.class;
 	}
 	
 	public String getTextToSend() {

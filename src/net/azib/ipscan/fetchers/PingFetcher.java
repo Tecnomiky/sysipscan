@@ -12,7 +12,6 @@ import net.azib.ipscan.core.net.PingResult;
 import net.azib.ipscan.core.net.Pinger;
 import net.azib.ipscan.core.net.PingerRegistry;
 import net.azib.ipscan.core.values.IntegerWithUnit;
-import net.azib.ipscan.gui.fetchers.PingFetcherPrefs;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -35,24 +34,20 @@ public class PingFetcher extends AbstractFetcher {
 	private ScannerConfig config;
 
 	/** The shared pinger - this one must be static, because PingTTLFetcher will use it as well */
-	private static volatile Pinger pinger;
+	private volatile Pinger pinger;
 	private static volatile AtomicInteger pingerUsers = new AtomicInteger();
 
 	/** The registry used for creation of Pinger instances */
 	private PingerRegistry pingerRegistry;
 	
-	public PingFetcher(PingerRegistry pingerRegistry, ScannerConfig scannerConfig) {
+	public PingFetcher(PingerRegistry pingerRegistry, ScannerConfig scannerConfig, Pinger pinger) {
 		this.pingerRegistry = pingerRegistry;
 		this.config = scannerConfig;
+		this.pinger = pinger;
 	}
 
 	public String getId() {
 		return ID;
-	}
-	
-	@Override
-	public Class<? extends FetcherPrefs> getPreferencesClass() {
-		return PingFetcherPrefs.class;
 	}
 
 	protected PingResult executePing(ScanningSubject subject) {

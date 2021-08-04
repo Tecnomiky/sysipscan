@@ -35,7 +35,7 @@ public class ScannerConfig {
 	 * It loads all preferences.
 	 * @param preferences
 	 */
-	ScannerConfig(Preferences preferences) {
+	public ScannerConfig(Preferences preferences) {
 		this.preferences = preferences;
 		
 		maxThreads = preferences.getInt("maxThreads", Platform.CRIPPLED_WINDOWS ? 10 : 100);

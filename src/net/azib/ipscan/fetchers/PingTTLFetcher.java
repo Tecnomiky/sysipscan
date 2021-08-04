@@ -8,6 +8,7 @@ import net.azib.ipscan.config.ScannerConfig;
 import net.azib.ipscan.core.ScanningResult.ResultType;
 import net.azib.ipscan.core.ScanningSubject;
 import net.azib.ipscan.core.net.PingResult;
+import net.azib.ipscan.core.net.Pinger;
 import net.azib.ipscan.core.net.PingerRegistry;
 
 /**
@@ -18,8 +19,8 @@ import net.azib.ipscan.core.net.PingerRegistry;
  */
 public class PingTTLFetcher extends PingFetcher {
 	
-	public PingTTLFetcher(PingerRegistry pingerRegistry, ScannerConfig scannerConfig) {
-		super(pingerRegistry, scannerConfig);
+	public PingTTLFetcher(PingerRegistry pingerRegistry, ScannerConfig scannerConfig, Pinger pinger) {
+		super(pingerRegistry, scannerConfig, pinger);
 	}
 
 	public String getId() {

@@ -6,7 +6,6 @@ import net.azib.ipscan.core.ScanningResult;
 import net.azib.ipscan.fetchers.IPFetcher;
 import net.azib.ipscan.fetchers.PingFetcher;
 import net.azib.ipscan.fetchers.PortsFetcher;
-import net.azib.ipscan.gui.feeders.AbstractFeederGUI;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -103,7 +102,7 @@ public class TXTExporter extends AbstractExporter {
 				   .substring(0, length - s.length());
 	}
 
-	public List<ScanningResult> importResults(String fileName, AbstractFeederGUI feeder) throws IOException {
+	public List<ScanningResult> importResults(String fileName) throws IOException {
 		List<ScanningResult> results = new ArrayList<>();
 		BufferedReader reader = null;
 		try {
@@ -166,7 +165,6 @@ public class TXTExporter extends AbstractExporter {
 				startIP = nextStartIP.getHostAddress();
 			}
 
-			feeder.unserialize(startIP, endIP);
 			return results;
 		}
 		finally {

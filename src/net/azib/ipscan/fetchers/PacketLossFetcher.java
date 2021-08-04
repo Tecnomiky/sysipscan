@@ -3,6 +3,7 @@ package net.azib.ipscan.fetchers;
 import net.azib.ipscan.config.ScannerConfig;
 import net.azib.ipscan.core.ScanningSubject;
 import net.azib.ipscan.core.net.PingResult;
+import net.azib.ipscan.core.net.Pinger;
 import net.azib.ipscan.core.net.PingerRegistry;
 
 import static net.azib.ipscan.core.ScanningResult.ResultType.ALIVE;
@@ -16,8 +17,8 @@ import static net.azib.ipscan.core.ScanningResult.ResultType.DEAD;
  */
 public class PacketLossFetcher extends PingFetcher {
 
-	public PacketLossFetcher(PingerRegistry pingerRegistry, ScannerConfig scannerConfig) {
-		super(pingerRegistry, scannerConfig);
+	public PacketLossFetcher(PingerRegistry pingerRegistry, ScannerConfig scannerConfig, Pinger pinger) {
+		super(pingerRegistry, scannerConfig, pinger);
 	}
 
 	public String getId() {
